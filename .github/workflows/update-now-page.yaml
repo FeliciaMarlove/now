@@ -1,27 +1,55 @@
-name: Update Now Page
+name: Build and Deploy Now Page
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Replace placeholder with last commit date
-        run: |
-          LAST_UPDATED=$(git log -1 --format=%cs)
-          sed -i "s/%%LAST_UPDATED%%/$LAST_UPDATED/" now.html
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
 
-      - name: Commit and push changes
+      - name: Install Jekyll
+        run: gem install jekyll
+
+      - name: Build site
+        run: jekyll build
+
+      - name: Replace placeholder with current date
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@users.noreply.github.com"
-          git commit -am "Update last updated date" || echo "No changes to commit"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LAST_UPDATED=$(date +%F)
+          sed -i "s/%%LAST_UPDATED%%/$LAST_UPDATED/" _site/now.html
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
