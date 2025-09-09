@@ -156,3 +156,69 @@ footer a {
 #backToTop:hover {
     background-color: #555;
 }
+
+/*START PORTFOLIO STYLE*/
+
+.portfolio {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.tile {
+    position: relative;
+    height: 200px;
+    background: url(assets/portfolio/image-is-missing-so-let-me-show-you-a-cat.jpg) center/cover no-repeat; /* Default pic */
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.tile:hover {
+    transform: scale(1.05);
+}
+
+.tile-content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem;
+    color: white;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+}
+
+.tile h2 {
+    width: 90%;
+    margin: 0;
+    font-size: 1.3rem;
+    line-height: 1.2;
+    word-wrap: break-word;
+}
+
+.tile .category {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    color: white;
+}
+
+.more-info {
+    max-height: 0;
+    width: 90%;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    font-size: 0.85rem;
+}
+
+.more-info a {
+    color: white;
+    font-weight: bold;
+}
+
+.tile:hover .more-info {
+    max-height: 200px;
+    margin-top: 0.5rem;
+}
+
+/*END PORTFOLIO STYLE*/
