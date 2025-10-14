@@ -25,6 +25,16 @@ a {
     color: SteelBlue;
 }
 
+.main-presentation {
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.presentation-container {
+    font-size: 1.2em;
+    padding: 1rem;
+}
+
 .trophy-case {
     float: right;
     margin-right: 1em;
