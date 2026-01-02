@@ -235,3 +235,32 @@ footer a {
 }
 
 /*END PORTFOLIO STYLE*/
+
+.form-container {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: center;
+    form {
+        width: 60%;
+    }
+    input{
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        width: 100%;
+        font-size: 1.4rem;
+        padding: 0.5rem;
+    }
+    textarea{
+        width: 100%;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        font-size: 1.4rem;
+        padding: 0.5rem;
+    }
+    button {
+        padding: 0.5rem;
+        font-size: 1.1rem;
+        background-color: #FFCC00;
+        border-radius: 0.2rem;
+    }
+}
